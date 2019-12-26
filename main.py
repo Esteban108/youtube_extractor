@@ -57,10 +57,7 @@ def main(only_audio):
             if last_url != url and "https://www.youtube.com/watch?v=" in url:
                 if url not in black_list:
                     yt = YouTube(url)
-                    title = yt.title
-                    title = title.replace(" ", "_")
-                    title = title.replace("-", "_")
-                    title = title.lower()
+                    title = yt.title.replace(" ", "_").replace("-", "_").lower()
                     print(f"detect new video: {title}")
                     last_url = url
                     if check_not_exist_video(title):
@@ -71,8 +68,7 @@ def main(only_audio):
 
         except KeyError:
             print(f"impossible download {url}")
-            print("not solution for it now :(")
-            traceback.print_exc()
+            print("solution here https://github.com/nficano/pytube/issues/467")
             black_list.append(url)
 
         except Exception as ex:
