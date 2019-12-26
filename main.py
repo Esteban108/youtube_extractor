@@ -1,3 +1,5 @@
+from selenium.common.exceptions import NoSuchWindowException
+
 from config import *
 from selenium import webdriver
 
@@ -50,7 +52,8 @@ def main(only_audio):
     driver.get("https://www.youtube.com/")
     last_url = None
     black_list = ["https://www.youtube.com/"]
-    while True:
+    bar = True
+    while bar:
         try:
             url = driver.current_url
 
@@ -70,6 +73,9 @@ def main(only_audio):
             print(f"impossible download {url}")
             print("solution here https://github.com/nficano/pytube/issues/467")
             black_list.append(url)
+
+        except NoSuchWindowException:
+            bar = False
 
         except Exception as ex:
             traceback.print_exc()
