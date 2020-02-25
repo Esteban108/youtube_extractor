@@ -1,3 +1,2 @@
 selenium
-pytube
-pyperclip
+pytube3
