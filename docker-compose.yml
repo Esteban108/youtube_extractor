@@ -1,0 +1,18 @@
+version: "3.1"
+
+services:
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - "4444:4444"
+      - "5901:5900"
+    volumes:
+      - /dev/shm:/dev/shm
+  app:
+    build: .
+    environment:
+      - SELENIUM=http://chrome:4444/wd/hub
+    volumes:
+      - "/videos:/videos"
+    depends_on:
+      - chrome
