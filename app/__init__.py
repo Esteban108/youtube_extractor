@@ -4,11 +4,9 @@ import sys
 import traceback
 
 from pytube import YouTube
-from selenium import webdriver
 from selenium.common.exceptions import NoSuchWindowException
-from selenium.webdriver.chrome.options import Options
 
-from app.config import PATH_MP4
+from app.config import PATH_MP4, get_driver
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -29,11 +27,7 @@ def check_not_exist_video(title):
 
 def main(only_audio):
     logger.debug(f"init module")
-    chrome_options = Options()
-    try:
-        driver = webdriver.Remote(os.environ['SELENIUM'], chrome_options.to_capabilities())
-    except KeyError:
-        driver = webdriver.Chrome()
+    driver = get_driver()
     driver.get("https://www.youtube.com/")
     last_url = None
     black_list = ["https://www.youtube.com/"]
